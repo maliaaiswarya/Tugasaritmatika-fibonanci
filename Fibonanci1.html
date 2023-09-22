@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kalkulator</title>
+</head>
+<body>
+    <h1>Kalkulator Matematika</h1>
+    <form id="calculatorForm">
+        <label for="operation">Pilih Operasi:</label>
+        <select id="operation">
+            <option value="fibonacci">Deret Fibonacci</option>
+            <option value="cube">Volume Kubus</option>
+            <option value="rectangularPrism">Volume Balok</option>
+            <option value="cylinder">Volume Tabung</option>
+        </select>
+        <div id="inputFields">
+            <div id="fibonacciFields">
+                <label for="fibonacciLength">Panjang Deret Fibonacci:</label>
+                <input type="number" id="fibonacciLength" />
+            </div>
+            <div id="cubeFields">
+                <label for="cubeSideLength">Panjang Sisi Kubus:</label>
+                <input type="number" id="cubeSideLength" />
+            </div>
+            <div id="rectangularPrismFields">
+                <label for="rectangularPrismLength">Panjang Balok:</label>
+                <input type="number" id="rectangularPrismLength" />
+                <label for="rectangularPrismWidth">Lebar Balok:</label>
+                <input type="number" id="rectangularPrismWidth" />
+                <label for="rectangularPrismHeight">Tinggi Balok:</label>
+                <input type="number" id="rectangularPrismHeight" />
+            </div>
+            <div id="cylinderFields">
+                <label for="cylinderRadius">Jari-Jari Tabung:</label>
+                <input type="number" id="cylinderRadius" />
+                <label for="cylinderHeight">Tinggi Tabung:</label>
+                <input type="number" id="cylinderHeight" />
+            </div>
+        </div>
+        <button type="button" onclick="calculate()">Hitung</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            const operation = document.getElementById("operation").value;
+            const resultElement = document.getElementById("result");
+            let result = "";
+
+            if (operation === "fibonacci") {
+                const length = parseInt(document.getElementById("fibonacciLength").value);
+                result = calculateFibonacci(length);
+            } else if (operation === "cube") {
+                const sideLength = parseInt(document.getElementById("cubeSideLength").value);
+                result = calculateCubeVolume(sideLength);
+            } else if (operation === "rectangularPrism") {
+                const length = parseInt(document.getElementById("rectangularPrismLength").value);
+                const width = parseInt(document.getElementById("rectangularPrismWidth").value);
+                const height = parseInt(document.getElementById("rectangularPrismHeight").value);
+                result = calculateRectangularPrismVolume(length, width, height);
+            } else if (operation === "cylinder") {
+                const radius = parseInt(document.getElementById("cylinderRadius").value);
+                const height = parseInt(document.getElementById("cylinderHeight").value);
+                result = calculateCylinderVolume(radius, height);
+            }
+
+            resultElement.textContent = "Hasil: " + result;
+        }
+
+        function calculateFibonacci(length) {
+            let sequence = [];
+            for (let i = 0; i < length; i++) {
+                if (i <= 1) {
+                    sequence.push(i);
+                } else {
+                    sequence.push(sequence[i - 1] + sequence[i - 2]);
+                }
+            }
+            return sequence.join(", ");
+        }
+
+        function calculateCubeVolume(sideLength) {
+            return sideLength ** 3;
+        }
+
+        function calculateRectangularPrismVolume(length, width, height) {
+            return length * width * height;
+        }
+
+        function calculateCylinderVolume(radius, height) {
+            return Math.PI * radius ** 2 * height;
+        }
+    </script>
+</body>
+</html>
